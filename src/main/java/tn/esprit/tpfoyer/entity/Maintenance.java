@@ -1,5 +1,4 @@
-package tn.esprit.tpfoyer.domain;
-
+package tn.esprit.tpfoyer.entity;
 
 
 import jakarta.persistence.*;
@@ -8,27 +7,30 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "contrat")
+@Table(name = "maintenance")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Contrat {
+public class Maintenance {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idContrat;
+    private Long idMaintenance;
 
     @Column(nullable = false)
-    private LocalDate dateSignature;
-
-    @Column(nullable = false, precision = 10, scale = 2)
-    private BigDecimal montantTotal;
+    private LocalDate dateDebut;
 
     @Column(nullable = false)
-    private Boolean valide;
+    private LocalDate dateFin;
+
+    @Column(length = 500)
+    private String description;
+
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Vehicule vehicule;
 }

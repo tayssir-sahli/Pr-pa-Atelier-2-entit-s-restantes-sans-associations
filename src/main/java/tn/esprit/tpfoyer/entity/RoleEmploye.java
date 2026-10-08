@@ -1,4 +1,4 @@
-package tn.esprit.tpfoyer.domain;
+package tn.esprit.tpfoyer.entity;
 
 public enum RoleEmploye {
     AGENT, MANAGER

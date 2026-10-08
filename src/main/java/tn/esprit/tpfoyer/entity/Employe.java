@@ -1,4 +1,4 @@
-package tn.esprit.tpfoyer.domain;
+package tn.esprit.tpfoyer.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -6,19 +6,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
-
 @Entity
-@Table(name = "client")
+@Table(name = "employe")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Client {
+public class Employe {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idClient;
+    private Long idEmploye;
 
     @Column(nullable = false, length = 50)
     private String nom;
@@ -26,14 +24,10 @@ public class Client {
     @Column(nullable = false, length = 50)
     private String prenom;
 
-    @Column(nullable = false, unique = true, length = 100)
-    private String email;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 20)
+    private RoleEmploye role;
 
-    @Column(length = 20)
-    private String telephone;
-
-    @Column(nullable = false, unique = true, length = 30)
-    private String numPermis;
-
-    private LocalDate dateInscription;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Agence agence;
 }
