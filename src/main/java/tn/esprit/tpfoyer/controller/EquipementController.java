@@ -1,0 +1,43 @@
+
+package tn.esprit.tpfoyer.controller;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+import tn.esprit.tpfoyer.entity.Equipement;
+import tn.esprit.tpfoyer.service.IEquipementService;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/equipements")
+@RequiredArgsConstructor
+public class EquipementController {
+
+    private final IEquipementService equipementService;
+
+    @PostMapping
+    public Equipement create(@RequestBody Equipement equipement) {
+        return equipementService.create(equipement);
+    }
+
+    @GetMapping("/{id}")
+    public Equipement findById(@PathVariable Long id) {
+        return equipementService.findById(id);
+    }
+
+    @GetMapping
+    public List<Equipement> findAll() {
+        return equipementService.findAll();
+    }
+
+    @PutMapping("/{id}")
+    public Equipement update(@PathVariable Long id,
+                             @RequestBody Equipement equipement) {
+        return equipementService.update(id, equipement);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        equipementService.deleteById(id);
+    }
+}
