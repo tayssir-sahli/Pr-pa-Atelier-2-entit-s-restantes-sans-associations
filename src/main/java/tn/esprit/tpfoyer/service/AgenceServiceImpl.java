@@ -35,8 +35,7 @@ public class AgenceServiceImpl implements IAgenceService {
     @Override
     public Agence update(Long id, Agence agence) {
         findById(id);
-        // À compléter en recopiant les champs modifiables
-        // dans l'entité existante.
+
         return agenceRepository.save(agence);
     }
 
