@@ -6,14 +6,17 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import tn.esprit.tpfoyer.entity.Agence;
+import tn.esprit.tpfoyer.entity.Vehicule;
 import tn.esprit.tpfoyer.exception.ResourceNotFoundException;
 import tn.esprit.tpfoyer.repository.IAgenceRepository;
+import tn.esprit.tpfoyer.repository.IVehiculeRepository;
 
 @Service
 @RequiredArgsConstructor
 public class AgenceServiceImpl implements IAgenceService {
 
     private final IAgenceRepository agenceRepository;
+    private final IVehiculeRepository vehiculeRepository;
 
     @Override
     public Agence create(Agence agence) {
@@ -46,4 +49,7 @@ public class AgenceServiceImpl implements IAgenceService {
         }
         agenceRepository.deleteById(id);
     }
+
+
+
 }

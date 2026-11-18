@@ -6,9 +6,12 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import tn.esprit.tpfoyer.dto.VehiculeDTO;
 import tn.esprit.tpfoyer.entity.Vehicule;
 import tn.esprit.tpfoyer.service.IVehiculeService;
 
@@ -75,5 +78,24 @@ public class VehiculeController {
     })
     public void delete(@PathVariable Long id) {
         vehiculeService.deleteById(id);
+    }
+
+
+    @Operation(
+            summary = "Affecter un véhicule à une agence",
+            description = "Permet d'affecter un véhicule existant à une agence existante."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Véhicule affecté avec succès à l'agence"),
+            @ApiResponse(responseCode = "400", description = "Identifiant invalide"),
+            @ApiResponse(responseCode = "404", description = "Agence ou véhicule introuvable"),
+            @ApiResponse(responseCode = "500", description = "Erreur interne du serveur")
+    })
+    @PutMapping("/{idAgence}/affecterVehicule/{idVehicule}")
+    public ResponseEntity<VehiculeDTO> affecterVehicule(
+            @PathVariable @Positive(message = "L'id de l'agence doit être positif") Long idAgence,
+            @PathVariable @Positive(message = "L'id du véhicule doit être positif") Long idVehicule) {
+
+        return ResponseEntity.ok(vehiculeService.affecterVehiculeAgence(idVehicule, idAgence));
     }
 }
